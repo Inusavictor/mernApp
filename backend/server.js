@@ -1,10 +1,15 @@
-const goodluck = {
-    complex: 'fair',
-    height: 'short',
-    status: 'married',
-    husband: 'victor'
-}
+const express = require('express')
+const dotenv = require('dotenv').config()
+const {errorHandler } = require('./middleware/errorMiddleware')
+const port = process.env.PORT || 5000
 
-Object.entries(goodluck).map(([prop, value]) => {
-console.log(`Goodluck has the following ${prop} : ${value}`)
-})
+const app = express()
+
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
+app.use('/api/goals', require('./routes/goalRoutes'))
+
+ app.use(errorHandler)
+
+app.listen(port, () => {console.log(`server started on port ${port}`)})
