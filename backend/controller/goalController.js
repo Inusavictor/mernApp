@@ -1,38 +1,86 @@
 const asyncHandler = require('express-async-handler')
+const Goal = require('../model/goalsModel')
 
 //@desc Get goals
 //@route get /api/goals
 //@access private
 const getGoals = asyncHandler(async (req, res) => {
-    res.status(200).json({message: 'get goals'})
-    console.log('my first goal')
+   const goals = await Goal.find()
+   if (goals) {
+    res.status(200).json(goals)
+   } else {
+    res.status(401)
+    throw new Error('Couldnt fetch goals')
+   }
+    
 })
 
 //@desc create goals
 //@route post /api/goals
 //@access private
 const createGoals = asyncHandler(async (req, res) => {
-    if (!req.body.text) {
-    res.status(401)
-     throw new Error('fill in all fields')
+     // body validation
+     if (!req.body.text) {
+        res.status(400)
+        throw new Error('Please add a goal')
     }
-    res.status(200).json(req.body)
+    // add goal to database
+    const goal = await Goal.create({text: req.body.text})
+    if (goal) {
+        res.status(200).json(goal)
+    } else {
+        res.status(400)
+        throw new Error('goal not added')
+    }
+   
 })
 
 //@desc update goals
 //@route put /api/goals/:id
 //@access private
 const updGoals = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `update goals ${req.params.id}`})
-    console.log('updated first goal')
+    //Goal validation
+    if (!req.body.text) {
+        res.status(400)
+        throw new Error('Please add a goal')
+    }
+    //find goal to be updated
+    const goal = await Goal.findOne({_id: req.params.id})
+    if (!goal) {
+        res.status(400)
+        throw new Error('Goal does not exist')
+    } 
+    // update goal 
+    const updateGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    if (updateGoal) {
+        res.status(200).json(updateGoal)
+    } else {
+        res.status(402)
+        throw new Error('goal couldnt be updated')
+    }
+    
 })
 
 //@desc delete goals
 //@route delete /api/goals/:id
 //@access private
 const deleteGoals = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `delete goals ${req.params.id}`})
-    console.log('deleted first goal')
+  
+    //find goal to be deleted
+    const goal = await Goal.findOne({_id: req.params.id})
+    if (!goal) {
+        res.status(400)
+        throw new Error('Goal does not exist')
+    } 
+    
+    const del = await Goal.findByIdAndDelete(req.params.id)
+    
+    if (del) {
+              res.status(200).json({id: req.params.id})
+    } else{
+        res.status(500)
+        throw new Error('couldnt delete')
+    }
 })
 
 module.exports = {getGoals, createGoals, updGoals, deleteGoals}
