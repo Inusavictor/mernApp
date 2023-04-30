@@ -28,7 +28,7 @@ const createGoals = asyncHandler(async (req, res) => {
     //get user from token
     const {id} = req.user
     // add goal to database
-    const goal = await Goal.create({user: id, text: req.body.text})
+    const goal = await Goal.create({user: id, text: req.body.text, description: req.body.description})
     if (goal) {
         res.status(200).json(goal)
     } else {

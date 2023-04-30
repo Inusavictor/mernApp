@@ -1,10 +1,19 @@
-import { Container, Button, Form } from 'react-bootstrap'
-import { useState } from 'react'
+import { Container, Button, Form, Spinner } from 'react-bootstrap'
+import { useState, useEffect } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import { login, reset } from '../features/auth/authSlice'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Login = () => {
     const [formData, setFormData] = useState({
         email: '', password: ''
     }) 
+
+const dispatch = useDispatch()
+const navigate = useNavigate()
+
+const {user, isLoading, isError, isSuccess, message} = useSelector(state => state.auth)
 
 const {email, password} = formData
 
@@ -14,14 +23,24 @@ const onChange = (e) => {
     }))
 }
 
+useEffect(() => {
+    if (isError) {toast(message)}
+    if (isSuccess) {toast('login successful');   navigate('/')}
+    dispatch(reset())
+    user && navigate('/')
+
+}, [user, formData, isSuccess, isError, message, dispatch, navigate])
+
 const onSubmit = (e) => {
     e.preventDefault()
-    
+    dispatch(login(formData))
 }
 
   return (
     <Container className='col-md-6 pt-5'>
+      {isLoading && (<Spinner />)}
     <h1 style={{textAlign: 'center'}}>Login</h1>
+    <h6 style={{textAlign: 'center'}}>Login and Start Setting Your Goals</h6>
     <Form onSubmit={onSubmit}>
 
   <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -34,9 +53,6 @@ const onSubmit = (e) => {
                   value={password} onChange={onChange} />
   </Form.Group>
 
-  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
-  </Form.Group>
   <Button variant="primary" type="submit">
     Submit
   </Button>
