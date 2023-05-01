@@ -109,12 +109,10 @@ export const goalsSlice = createSlice({
         .addCase(updateGoal.fulfilled, (state, action) => {
             state.isLoading = false
             state.isSuccess = true
-            state.goals.map((goal) => {
-                if (goal._id === action.payload._id) {
-                    goal.text = action.payload.text
-                    goal.description = action.payload.description
-                } else {return state.goals}
-            })
+            const index = state.goals.findIndex(goal => goal._id === action.payload._id)
+            const newGoals = [...state.goals]
+            newGoals[index].text = action.payload.text 
+            newGoals[index].description = action.payload.description 
         })
         .addCase(updateGoal.rejected, (state, action) => {
             state.isLoading = false

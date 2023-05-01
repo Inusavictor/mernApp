@@ -88,7 +88,6 @@ export default Dashboard
 //Goal Form
 const AddGoalForm = () => {
   const dispatch = useDispatch()
-  const {isSuccess} = useSelector(state => state.Goal)
 
     //Add a goal
     const [formData, setFormData] = useState({
