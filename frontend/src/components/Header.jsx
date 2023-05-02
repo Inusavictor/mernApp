@@ -1,4 +1,5 @@
 import { Container, Nav, Navbar, Spinner } from 'react-bootstrap'
+import {LinkContainer} from 'react-router-bootstrap'
 import { logout } from '../features/auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -11,7 +12,7 @@ const Header = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="/">Goal Setter App</Navbar.Brand>
+       <LinkContainer to="/"> <Navbar.Brand >Goal Setter App</Navbar.Brand></LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -19,11 +20,11 @@ const Header = () => {
           <Nav>
             {!user ? 
               ( <>
-                <Nav.Link href="/register">Register</Nav.Link>
-                <Nav.Link href="/login">Login</Nav.Link>
+               <LinkContainer to="/register"> <Nav.Link>Register</Nav.Link> </LinkContainer>
+               <LinkContainer to="/login"><Nav.Link>Login</Nav.Link> </LinkContainer>
                 </>
               ) : (
-                <Nav.Link href='/login' onClick= {() => dispatch(logout())}>Logout</Nav.Link>
+                <LinkContainer to="/login"><Nav.Link onClick= {() => dispatch(logout())}>Logout</Nav.Link></LinkContainer>
               )
             }
           </Nav>
