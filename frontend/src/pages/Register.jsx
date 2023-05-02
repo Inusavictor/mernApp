@@ -66,7 +66,7 @@ const {isLoading, isSuccess, isError, message, user} = useSelector(state => stat
                       value={password2} onChange={onChange} />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" className={!name || !password || !email || !password2 ? 'disabled' : ''} >
         Submit
       </Button>
     </Form>

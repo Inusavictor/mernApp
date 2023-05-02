@@ -49,7 +49,7 @@ const Dashboard = () => {
     goals.length > 0 ? (
       orderedGoals.map((goal) => {
         return (
-          <Col key={goal._id} className='col-sm-12 col-md-4 col-xl-3 py-1'>
+          <Col key={goal._id} className='col-12 col-sm-12 col-md-4 col-xl-3 py-1'>
                   <Card>
                   <Card.Body>
                     <div style={{float: 'right' }}>
@@ -120,7 +120,7 @@ const AddGoalForm = () => {
         <Form.Control as="textarea" rows={3} placeholder='Goal Description' name='description' value={description} onChange={onChange} />
       </Form.Group>
       <Form.Group className="d-grid gap-2">
-      <Button variant="primary" onClick={onSubmit}>
+      <Button variant="primary" onClick={onSubmit} className={!text ? 'disabled' : ''}>
         Submit
       </Button>
       </Form.Group>

@@ -54,7 +54,7 @@ const onSubmit = (e) => {
                   value={password} onChange={onChange} />
   </Form.Group>
 
-  <Button variant="primary" type="submit">
+  <Button variant="primary" type="submit" className={!password || !email ? 'disabled' : ''}>
     Submit
   </Button>
 </Form>
