@@ -1,6 +1,5 @@
 {
   "name": "frontend",
-  "homepage": "http://inusavictor.github.io/goal_tracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
