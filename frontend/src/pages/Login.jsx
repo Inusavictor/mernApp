@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { login, reset } from '../features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import {FaSignInAlt} from 'react-icons/fa'
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -37,9 +38,9 @@ const onSubmit = (e) => {
 }
 
   return (
-    <Container className='col-md-6 pt-5'>
+    <Container className='col-md-4 pt-5'>
       {isLoading && (<Spinner />)}
-    <h1 style={{textAlign: 'center'}}>Login</h1>
+    <h1 style={{textAlign: 'center'}}><FaSignInAlt /> Login</h1>
     <h6 style={{textAlign: 'center'}}>Login and Start Setting Your Goals</h6>
     <Form onSubmit={onSubmit}>
 

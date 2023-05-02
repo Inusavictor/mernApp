@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { register, reset } from '../features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
+import {FaUser} from 'react-icons/fa'
 
 const Register = () => {
 const dispatch = useDispatch()
@@ -40,8 +41,8 @@ const {isLoading, isSuccess, isError, message, user} = useSelector(state => stat
 
 
   return (
-    <Container className='col-md-6 pt-5'>
-        <h1 style={{textAlign: 'center'}}>Register</h1>
+    <Container className='col-md-4 pt-5'>
+        <h1 style={{textAlign: 'center'}}><FaUser /> Register</h1>
         <h6 style={{textAlign: 'center'}}>Create An Account To Start Setting Goals</h6>
         {isLoading && <Spinner />}
         <Form onSubmit={onSubmit}>

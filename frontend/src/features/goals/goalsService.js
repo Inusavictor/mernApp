@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'api/goals/'
+const API_URL = 'https://mern-api-7w3a.onrender.com/api/goals/'
 
 //get all goals
 const getGoals = async (token) => {
@@ -27,6 +27,7 @@ const deleteGoal = async (token, goalId) => {
    const response = await axios.delete(API_URL+goalId, header)
    return response.data
 }
+
 
 //update Goal
 const updateGoal = async(token, formData) => {

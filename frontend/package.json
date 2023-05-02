@@ -1,8 +1,7 @@
 {
-  "homepage": "http://inusavictor.github.io/goal_tracker",
   "name": "frontend",
+  "homepage": "http://inusavictor.github.io/goal_tracker",
   "version": "0.1.0",
-  "proxy": "https://mern-api-7w3a.onrender.com/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
